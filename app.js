@@ -7,6 +7,7 @@ const me = users[0]
 const typeDefs = gql`
   type Query {
     users: [User]
+    user(id: Int!): User
     me: User
   }
 
@@ -18,6 +19,10 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     users: () => users,
+    user: (parent, { id }) => {
+      const user = users.filter(user => user.id === id)
+      return user[0]
+    },
     me: () => me
   }
 }
