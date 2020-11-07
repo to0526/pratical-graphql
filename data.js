@@ -1,12 +1,15 @@
 let users = [{
   id: 1,
-  name: "Tamas"
+  name: "Tamas",
+  cars: [1, 2]
 }, {
   id: 2,
-  name: "Susan"
+  name: "Susan",
+  cars: []
 }, {
   id: 3,
-  name: "Steven"
+  name: "Steven",
+  cars: [3]
 }]
 
 let cars = [{
