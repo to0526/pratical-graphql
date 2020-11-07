@@ -25,6 +25,7 @@ const typeDefs = gql`
     make: String!
     model: String!
     colour: String!
+    owner: User!
   }
 `
 const resolvers = {
@@ -40,6 +41,9 @@ const resolvers = {
       return car[0]
     },
     me: () => me
+  },
+  Car: {
+    owner: parent => users[parent.ownedBy - 1]
   }
 }
 
