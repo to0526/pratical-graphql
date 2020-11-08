@@ -18,6 +18,7 @@ const typeDefs = gql`
   type User {
     id: ID!
     name: String!
+    car: [Car]
   }
 
   type Car {
@@ -25,6 +26,7 @@ const typeDefs = gql`
     make: String!
     model: String!
     colour: String!
+    owner: User!
   }
 `
 const resolvers = {
@@ -40,6 +42,14 @@ const resolvers = {
       return car[0]
     },
     me: () => me
+  },
+  Car: {
+    owner: parent => users[parent.ownedBy - 1]
+  },
+  User: {
+    car: parent => {
+      return parent.cars.map(carId => cars[carId - 1])
+    }
   }
 }
 
