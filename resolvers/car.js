@@ -1,26 +1,26 @@
 const resolvers = {
   Query: {
-    cars: () => cars,
-    car: (parent, { id }) => {
-      const car = cars.filter(car => car.id === id)
+    cars: (parent, args, { models }) => models.cars,
+    car: (parent, { id }, { models }) => {
+      const car = models.cars.filter(car => car.id === id)
       return car[0]
     },
     me: () => me
   },
   Mutation: {
-    createCar: (parent, { id, make, model, colour }) =>{
+    createCar: (parent, { id, make, model, colour }, { models }) =>{
       const car = {
         id,
         make,
         model,
         colour
       }
-      cars.push(car)
+      models.cars.push(car)
       return car
     },
-    removeCar: (parent, { id }) => {
+    removeCar: (parent, { id }, { models }) => {
       let found = false
-      cars = cars.filter(car => {
+      models.cars = models.cars.filter(car => {
         if (car.id === id) {
           found = true
         } else {
@@ -35,7 +35,7 @@ const resolvers = {
     }
   },
   Car: {
-    owner: parent => users[parent.ownedBy - 1]
+    owner: (parent, args, { models }) => models.users[parent.ownedBy - 1]
   }
 }
 
